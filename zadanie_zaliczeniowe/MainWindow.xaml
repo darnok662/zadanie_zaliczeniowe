@@ -6,7 +6,51 @@
         xmlns:local="clr-namespace:zadanie_zaliczeniowe"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
     <Grid>
-        
+        <StackPanel>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Column="0">Text</Label >
+                <ComboBox Grid.Column="1" IsDropDownOpen="True" IsReadOnly="True"></ComboBox>
+                <Button Grid.Column="2">Dodaj</Button>
+                
+            </Grid>
+            <GroupBox x:Name="customerAccounts" Header="Konta klienta">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <ListView Grid.Column="0"></ListView>
+                    <StackPanel Grid.Column="1">
+                        <Button>Dodaj konto</Button>
+                        <Button>Usuń konto</Button>
+                    </StackPanel>
+                </Grid>
+            </GroupBox>
+            
+            <GroupBox x:Name="customerService" Header="Obsługa Klienta">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0"></TextBox>
+                    <Button Grid.Column="1">Wpłać</Button>
+                    <Button Grid.Column="2">Wypłać</Button>
+
+
+                </Grid>
+
+            </GroupBox>
+        </StackPanel>
     </Grid>
+    
 </Window>
