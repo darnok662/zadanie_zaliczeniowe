@@ -1,0 +1,53 @@
+﻿<Window x:Class="zadanie_zaliczeniowe.accountWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:zadanie_zaliczeniowe"
+        mc:Ignorable="d"
+        Title="accountWindow" Height="240" Width="600"  MinHeight="240" MinWidth="600"  MaxHeight="240" MaxWidth="600">
+
+    <Grid x:Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="generatedNumberLabel" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">Numer konta:</Label>
+            <TextBox x:Name="GeneratedNumberTextbox" Grid.Column="1" IsReadOnly="True"></TextBox>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="3*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="accTypeLabel" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">Rodzaj konta: </Label>
+            <ComboBox x:Name="AccTypeComboBox" Grid.Column="1"></ComboBox>
+            
+        </Grid>
+
+
+        <Grid Grid.Row="2" Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="okButton" Grid.Column="1" Margin="5" FontSize="24">OK</Button>
+            <Button x:Name="cancelButton" Grid.Column="2" Margin="5" FontSize="24">Anuluj</Button>
+
+        </Grid>
+
+    </Grid>
+    
+</Window>

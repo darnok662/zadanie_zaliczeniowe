@@ -5,46 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:zadanie_zaliczeniowe"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="470" Width="600" MinHeight="470" MinWidth="600" MaxHeight="470">
 
-    <Grid>
+    <Grid x:Name="main_Grid" Margin="10">
         <StackPanel>
-            <Grid>
+            <Grid x:Name="firstGrid" Height="40">
+
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
-                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
+                    <ColumnDefinition Width="3*"></ColumnDefinition>
+                    <ColumnDefinition Width="1*"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Label Grid.Column="0">Text</Label >
-                <ComboBox Grid.Column="1" IsDropDownOpen="True" IsReadOnly="True"></ComboBox>
-                <Button Grid.Column="2">Dodaj</Button>
-                
+                <Label x:Name="labelOne" Grid.Column="0" Content="Wybierz klienta:" VerticalAlignment="Center"/>
+                <ComboBox x:Name="customerList" Grid.Column="1" IsReadOnly="True" Margin="5,5,15,5"/>
+                <Button x:Name="buttonAdd" Grid.Column="2">Dodaj</Button>
+
             </Grid>
-            <GroupBox x:Name="customerAccounts" Header="Konta klienta">
-                <Grid>
+            <GroupBox x:Name="customerAccounts" Header="Konta klienta" Height="300">
+                <Grid x:Name="secondGrid">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <ListView Grid.Column="0"></ListView>
-                    <StackPanel Grid.Column="1">
-                        <Button>Dodaj konto</Button>
-                        <Button>Usuń konto</Button>
+                    <ListView x:Name="customerAccList" Grid.Column="0"></ListView>
+                    <StackPanel x:Name="stackButtonPanel" Grid.Column="1" Margin="15">
+                        <Button x:Name="ButtonAddAcc" Margin="5" Height="40">Dodaj konto</Button>
+                        <Button x:Name="ButtonDeleteAcc" Margin="5" Height="40">Usuń konto</Button>
                     </StackPanel>
                 </Grid>
             </GroupBox>
-            
-            <GroupBox x:Name="customerService" Header="Obsługa Klienta">
-                <Grid>
+            <GroupBox x:Name="accService" Header="Obsługa Klienta">
+                <Grid x:Name="thirdGrid" Height="40">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition Width="3*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0"></TextBox>
-                    <Button Grid.Column="1">Wpłać</Button>
-                    <Button Grid.Column="2">Wypłać</Button>
+                    <TextBox x:Name="accServiceTextbox" Grid.Column="0" Margin="0, 0, 15, 0" FontSize="24" IsUndoEnabled="False"/>
+                    <Button x:Name="depositButton" Grid.Column="1" Click="Button_Click" Content="Wpłać" Margin="0, 0, 15, 0"/>
+                    <Button x:Name="withdrawButton" Grid.Column="2" Content="Wypłać"/>
 
 
                 </Grid>
@@ -52,5 +52,5 @@
             </GroupBox>
         </StackPanel>
     </Grid>
-    
+
 </Window>
