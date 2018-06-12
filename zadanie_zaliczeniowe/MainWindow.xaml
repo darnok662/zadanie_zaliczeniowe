@@ -18,8 +18,8 @@
                 </Grid.ColumnDefinitions>
 
                 <Label x:Name="labelOne" Grid.Column="0" Content="Wybierz klienta:" VerticalAlignment="Center"/>
-                <ComboBox x:Name="customerList" Grid.Column="1" IsReadOnly="True" Margin="5,5,15,5"/>
-                <Button x:Name="buttonAdd" Grid.Column="2">Dodaj</Button>
+                <ComboBox x:Name="customerList" Grid.Column="1" IsReadOnly="True" Margin="5,5,15,5" SelectionChanged="customerList_SelectionChanged" />
+                <Button x:Name="buttonAdd" Grid.Column="2" Click="buttonAdd_Click">Dodaj</Button>
 
             </Grid>
             <GroupBox x:Name="customerAccounts" Header="Konta klienta" Height="300">
@@ -43,7 +43,7 @@
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="accServiceTextbox" Grid.Column="0" Margin="0, 0, 15, 0" FontSize="24" IsUndoEnabled="False"/>
-                    <Button x:Name="depositButton" Grid.Column="1" Click="Button_Click" Content="Wpłać" Margin="0, 0, 15, 0"/>
+                    <Button x:Name="depositButton" Grid.Column="1" Content="Wpłać" Margin="0, 0, 15, 0"/>
                     <Button x:Name="withdrawButton" Grid.Column="2" Content="Wypłać"/>
 
 

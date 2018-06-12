@@ -29,8 +29,8 @@
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="okButton" Grid.Column="1" Margin="5" FontSize="24">OK</Button>
-            <Button x:Name="cancelButton" Grid.Column="2" Margin="5" FontSize="24">Anuluj</Button>
+            <Button x:Name="okButton" Grid.Column="1" Margin="5" FontSize="24" Click="okButton_Click">OK</Button>
+            <Button x:Name="cancelButton" Grid.Column="2" Margin="5" FontSize="24" Click="cancelButton_Click">Anuluj</Button>
             
         </Grid>
 

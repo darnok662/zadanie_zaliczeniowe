@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using static zadanie_zaliczeniowe.Classes;
 
 namespace zadanie_zaliczeniowe
 {
@@ -22,6 +23,24 @@ namespace zadanie_zaliczeniowe
         public clientWindow()
         {
             InitializeComponent();
+        }
+
+        private void cancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            DialogResult = false;
+        }
+
+        private void okButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(surnameTextbox.Text))
+            {
+                MessageBox.Show("Musisz podać jakąś wartość!", "Błędne nazwisko", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            DialogResult = true;
+
+            
         }
     }
 }
