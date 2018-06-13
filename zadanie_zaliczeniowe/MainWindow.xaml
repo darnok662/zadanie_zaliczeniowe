@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:zadanie_zaliczeniowe"
         mc:Ignorable="d"
-        Title="MainWindow" Height="470" Width="600" MinHeight="470" MinWidth="600" MaxHeight="470">
+        Title="MainWindow" Height="470" Width="600" MinHeight="470" MinWidth="600" MaxHeight="470"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
     <Grid x:Name="main_Grid" Margin="10">
         <StackPanel>
@@ -18,19 +19,20 @@
                 </Grid.ColumnDefinitions>
 
                 <Label x:Name="labelOne" Grid.Column="0" Content="Wybierz klienta:" VerticalAlignment="Center"/>
-                <ComboBox x:Name="customerList" Grid.Column="1" IsReadOnly="True" Margin="5,5,15,5" SelectionChanged="customerList_SelectionChanged" />
+                <ComboBox x:Name="customerList" Grid.Column="1" IsReadOnly="True" Margin="5,5,15,5" SelectionChanged="customerList_SelectionChanged" 
+                          ItemsSource="{Binding ListOfClients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 <Button x:Name="buttonAdd" Grid.Column="2" Click="buttonAdd_Click">Dodaj</Button>
 
             </Grid>
             <GroupBox x:Name="customerAccounts" Header="Konta klienta" Height="300">
-                <Grid x:Name="secondGrid">
+                <Grid x:Name="secondGrid" DataContext="{Binding ElementName=customerList, Path=SelectedItem}">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                         <ColumnDefinition Width="1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <ListView x:Name="customerAccList" Grid.Column="0"></ListView>
+                    <ListBox x:Name="customerAccList" Grid.Column="0" DisplayMemberPath="name"></ListBox>
                     <StackPanel x:Name="stackButtonPanel" Grid.Column="1" Margin="15">
-                        <Button x:Name="ButtonAddAcc" Margin="5" Height="40">Dodaj konto</Button>
+                        <Button x:Name="ButtonAddAcc" Margin="5" Height="40" Click="ButtonAddAcc_Click">Dodaj konto</Button>
                         <Button x:Name="ButtonDeleteAcc" Margin="5" Height="40">Usuń konto</Button>
                     </StackPanel>
                 </Grid>

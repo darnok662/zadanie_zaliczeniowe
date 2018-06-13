@@ -21,7 +21,7 @@
             </Grid.ColumnDefinitions>
 
             <Label x:Name="generatedNumberLabel" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">Numer konta:</Label>
-            <TextBox x:Name="GeneratedNumberTextbox" Grid.Column="1" IsReadOnly="True"></TextBox>
+            <TextBox x:Name="GeneratedNumberTextbox" Grid.Column="1" IsReadOnly="True" IsEnabled="False"></TextBox>
         </Grid>
 
         <Grid Grid.Row="1" Margin="10">
@@ -43,8 +43,8 @@
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="okButton" Grid.Column="1" Margin="5" FontSize="24">OK</Button>
-            <Button x:Name="cancelButton" Grid.Column="2" Margin="5" FontSize="24">Anuluj</Button>
+            <Button x:Name="okButton" Grid.Column="1" Margin="5" FontSize="24" Click="okButton_Click">OK</Button>
+            <Button x:Name="cancelButton" Grid.Column="2" Margin="5" FontSize="24" Click="cancelButton_Click">Anuluj</Button>
 
         </Grid>
 
