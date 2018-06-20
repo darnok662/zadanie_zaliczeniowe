@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,11 +19,42 @@ namespace zadanie_zaliczeniowe
     /// <summary>
     /// Interaction logic for accountWindow.xaml
     /// </summary>
-    public partial class accountWindow : Window
+    public partial class accountWindow : Window, INotifyPropertyChanged
     {
+        private long accountNumber;
+
+
         public accountWindow()
         {
             InitializeComponent();
+
+            AccountNumber = Account.UniqueAccountNumber;
+
+        }
+
+        public long AccountNumber
+        {
+            get
+            {
+                return accountNumber;
+            }
+            set
+            {
+                accountNumber = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged([CallerMemberName]string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = this.PropertyChanged;
+            if (handler != null)
+            {
+                var e = new PropertyChangedEventArgs(propertyName);
+                handler(this, e);
+            }
         }
 
         private void cancelButton_Click(object sender, RoutedEventArgs e)
@@ -33,10 +66,6 @@ namespace zadanie_zaliczeniowe
         {
             DialogResult = true;
         }
-
-        enum AccountTypes
-        {
-           
-        }
+        
     }
 }

@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:zadanie_zaliczeniowe"
         mc:Ignorable="d"
-        Title="accountWindow" Height="240" Width="600"  MinHeight="240" MinWidth="600"  MaxHeight="240" MaxWidth="600">
+        Title="accountWindow" Height="240" Width="600"  MinHeight="240" MinWidth="600"  MaxHeight="240" MaxWidth="600"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
     <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
@@ -21,7 +22,7 @@
             </Grid.ColumnDefinitions>
 
             <Label x:Name="generatedNumberLabel" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">Numer konta:</Label>
-            <TextBox x:Name="GeneratedNumberTextbox" Grid.Column="1" IsReadOnly="True" IsEnabled="False"></TextBox>
+            <TextBox x:Name="GeneratedNumberTextbox" Text="{Binding AccountNumber , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" IsReadOnly="True" IsEnabled="False"></TextBox>
         </Grid>
 
         <Grid Grid.Row="1" Margin="10">
@@ -31,7 +32,11 @@
             </Grid.ColumnDefinitions>
 
             <Label x:Name="accTypeLabel" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">Rodzaj konta: </Label>
-            <ComboBox x:Name="AccTypeComboBox" Grid.Column="1"></ComboBox>
+            <ComboBox x:Name="AccTypeComboBox" Grid.Column="1" SelectedIndex="0">
+                <ComboBoxItem Content="pierwa sort" />
+                <ComboBoxItem Content="2 sort" />
+                <ComboBoxItem Content="3 sort" />
+            </ComboBox>
             
         </Grid>
 

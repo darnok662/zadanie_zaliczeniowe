@@ -20,20 +20,21 @@
 
                 <Label x:Name="labelOne" Grid.Column="0" Content="Wybierz klienta:" VerticalAlignment="Center"/>
                 <ComboBox x:Name="customerList" Grid.Column="1" IsReadOnly="True" Margin="5,5,15,5" SelectionChanged="customerList_SelectionChanged" 
-                          ItemsSource="{Binding ListOfClients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                          ItemsSource="{Binding ListOfClients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0" />
                 <Button x:Name="buttonAdd" Grid.Column="2" Click="buttonAdd_Click">Dodaj</Button>
 
             </Grid>
             <GroupBox x:Name="customerAccounts" Header="Konta klienta" Height="300">
-                <Grid x:Name="secondGrid" DataContext="{Binding ElementName=customerList, Path=SelectedItem}">
+                <Grid x:Name="secondGrid">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                         <ColumnDefinition Width="1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <ListBox x:Name="customerAccList" Grid.Column="0" DisplayMemberPath="name"></ListBox>
+                    <ListBox x:Name="customerAccList" Grid.Column="0"
+                             ItemsSource="{Binding UserAccountList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0" />
                     <StackPanel x:Name="stackButtonPanel" Grid.Column="1" Margin="15">
                         <Button x:Name="ButtonAddAcc" Margin="5" Height="40" Click="ButtonAddAcc_Click">Dodaj konto</Button>
-                        <Button x:Name="ButtonDeleteAcc" Margin="5" Height="40">Usuń konto</Button>
+                        <Button x:Name="ButtonDeleteAcc" Margin="5" Height="40" Click="ButtonDeleteAcc_Click">Usuń konto</Button>
                     </StackPanel>
                 </Grid>
             </GroupBox>

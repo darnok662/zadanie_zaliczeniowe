@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -14,7 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using zadanie_zaliczeniowe.Enums;
 
 namespace zadanie_zaliczeniowe
 {
@@ -23,9 +24,13 @@ namespace zadanie_zaliczeniowe
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private List<Client> listOfClients = new List<Client>();        
+        private ObservableCollection<Client> listOfClients = new ObservableCollection<Client>();
 
-        public List<Client> ListOfClients
+        private Client selectedClient;
+
+        private ObservableCollection<Account> userAccountList = new ObservableCollection<Account>();
+
+        public ObservableCollection<Client> ListOfClients
         {
             get
             {
@@ -34,6 +39,19 @@ namespace zadanie_zaliczeniowe
             set
             {
                 listOfClients = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<Account> UserAccountList
+        {
+            get
+            {
+                return userAccountList;
+            }
+            set
+            {
+                userAccountList = value;
                 OnPropertyChanged();
             }
         }
@@ -49,8 +67,6 @@ namespace zadanie_zaliczeniowe
             Locate lokata = new Locate();
             Console.WriteLine(lokata.accountBalance.ToString());
             Console.WriteLine(ror.accountBalance.ToString());
-            Console.WriteLine(ror.accNum.ToString());
-            Console.WriteLine(lokata.accNum.ToString());
 
             for (int i = 0; i <= 9; i++)
             {
@@ -70,6 +86,8 @@ namespace zadanie_zaliczeniowe
                 
                 
             }
+
+
 
             //customerList.ItemsSource = ListOfClients;
             //customerList.Focus();
@@ -98,6 +116,15 @@ namespace zadanie_zaliczeniowe
 
         private void customerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            var element = sender as ComboBox;
+
+            if(element != null)
+            {
+                var selected = element.SelectedItem; 
+
+                this.selectedClient = selected as Client;
+                UserAccountList = new ObservableCollection<Account>(selectedClient.ListOfAccounts);
+            }
             //customerAccList.ItemsSource = ListOfClients[customerList.SelectedIndex].ListOfAccounts;
         }
 
@@ -107,14 +134,13 @@ namespace zadanie_zaliczeniowe
 
             if (clientWindow.ShowDialog() == true)
             {
-                string surname = clientWindow.surnameTextbox.Text;
+                Client client = new Client()
+                {
+                    name=clientWindow.nameTextbox.Text,
+                    surname = clientWindow.surnameTextbox.Text
+                };
 
-                Client klient = new Client();
-                klient.surname = surname;
-
-                ListOfClients.Add(klient);
-
-                customerList.Items.Refresh();
+                ListOfClients.Add(client);
             }
 
         }
@@ -125,7 +151,50 @@ namespace zadanie_zaliczeniowe
 
             if (accountWindow.ShowDialog() == true)
             {
-                
+                int selectedIndex = accountWindow.AccTypeComboBox.SelectedIndex;
+
+                if(selectedIndex >= 0)
+                {
+                    Account account = null;
+
+                    switch (selectedIndex)
+                    {
+                        case (int)AccountTypeEnum.CreditCard:
+                            account = new CreditCard();
+
+                            break;
+
+                        case (int)AccountTypeEnum.DepositAccount:
+                            account = new Locate();
+
+                            break;
+
+                        case (int)AccountTypeEnum.PersonalAccount:
+                            account = new ROR();
+
+                            break;
+                    }
+
+                    if(account != null)
+                    {
+                        selectedClient.ListOfAccounts.Add(account);
+                        UserAccountList.Add(account);
+                    }
+                }
+            }
+        }
+
+        private void ButtonDeleteAcc_Click(object sender, RoutedEventArgs e)
+        {
+            Account selectedAccount = customerAccList.SelectedItem as Account;
+
+            if(selectedAccount != null)
+            {
+                if(UserAccountList.Contains(selectedAccount))
+                {
+                    UserAccountList.Remove(selectedAccount);
+                    selectedClient.ListOfAccounts.Remove(selectedAccount);
+                }
             }
         }
     }

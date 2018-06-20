@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:zadanie_zaliczeniowe"
         mc:Ignorable="d"
-        Title="clientWindow" Height="160" Width="400" MaxHeight="160" MaxWidth="400" MinHeight="160" MinWidth="400">
+        Title="clientWindow" Height="260" Width="400" MaxHeight="260" MaxWidth="400" MinHeight="160" MinWidth="400">
     <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition></RowDefinition>
@@ -18,11 +18,20 @@
                 <ColumnDefinition Width="3*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="surnameLabel" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Grid.ColumnSpan="2" Margin="0,1,262,1" Width="120">Nazwisko:</Label>
-            <TextBox x:Name="surnameTextbox" Grid.Column="1" Margin="29,0,0,0"></TextBox>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Label x:Name="nameLabel" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Grid.ColumnSpan="2" Margin="0,1,262,1" Width="120">Imie:</Label>
+            <TextBox x:Name="nameTextbox" Grid.Column="1" Margin="29,0,0,0"></TextBox>
+
+            <Label x:Name="surnameLabel" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Grid.ColumnSpan="2" Margin="0,1,262,1" Width="120">Nazwisko:</Label>
+            <TextBox x:Name="surnameTextbox" Grid.Row="1" Grid.Column="1" Margin="29,0,0,0"></TextBox>
+            
         </Grid>
 
-        <Grid Grid.Row="1" Height="60">
+        <Grid Grid.Row="2" Height="60">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>

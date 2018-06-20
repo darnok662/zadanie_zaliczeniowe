@@ -8,107 +8,96 @@ namespace zadanie_zaliczeniowe
 {
     //class Classes
     //{
-        public abstract class Account
+    public abstract class Account
+    {
+        public static long UniqueAccountNumber = 1;
+
+        public double accountBalance = 0.0;
+        public string AccountType { get; protected set; }
+        public long AccountNumber { get; protected set; }
+
+        public abstract double DepositMoney();
+        public abstract double WithdrawMoney();
+
+        public Account()
         {
-            public double accountBalance = 0.0;
-            public string accountName;
-            public long accNum;
-            public static long accNumber = 0;
-
-            public abstract double DepositMoney();
-            public abstract double WithdrawMoney();
-
-            public override string ToString()
-            {
-                return accountName + accountBalance.ToString() + accNumber.ToString();
-            }
-
-        }
-        public class ROR : Account
-        {
-            public ROR()
-            {
-                this.accNum = ++accNumber;
-                accountName = "rachunek";
-            }
-
-            public override double DepositMoney()
-            {
-
-                return 2.3;
-            }
-
-            public override double WithdrawMoney()
-            {
-
-                return 3.4;
-            }
-        }
-        public class Locate : Account
-        {
-            public Locate ()
-            {
-                this.accNum = ++accNumber;
-                accountName = "Lokata";
-            }
-            public override double DepositMoney()
-            {
-                return 2.3;
-            }
-
-            public override double WithdrawMoney()
-            {
-
-                return 3.4;
-            }
-
-        }
-        public class CreditCard : Account
-        {
-            public CreditCard()
-            {
-                this.accNum = ++accNumber;
-                accountName = "Karta Kredytowa";
-            }
-            public override double DepositMoney()
-            {
-                return 2.3;
-            }
-
-            public override double WithdrawMoney()
-            {
-
-                return 3.4;
-            }
+            UniqueAccountNumber++;
+            AccountNumber = UniqueAccountNumber;
 
         }
 
-        public class Client
+        public override string ToString()
         {
-            public string name;
-            public string surname;
-            public List<Account> ListOfAccounts = new List<Account>();
-            public override string ToString()
-            {
-                return name + surname;
-            }
-
-            public void AddAccount(Account account) 
-            {
-                account.accNum = Account.accNumber++;
-
-                ListOfAccounts.Add(account);
-            }
-
-            public void RemoveAccount(Account account)
-            {
-                if(ListOfAccounts.Contains(account))
-                {
-                    ListOfAccounts.Remove(account);
-                    
-                }
-            }
+            return AccountType + accountBalance.ToString() + UniqueAccountNumber.ToString();
         }
+
+    }
+    public class ROR : Account
+    {
+        public ROR() 
+        {
+            AccountType = "rachunek";
+        }
+
+        public override double DepositMoney()
+        {
+
+            return 2.3;
+        }
+
+        public override double WithdrawMoney()
+        {
+
+            return 3.4;
+        }
+    }
+    public class Locate : Account
+    {
+        public Locate()
+        {
+            AccountType = "Lokata";
+        }
+        public override double DepositMoney()
+        {
+            return 2.3;
+        }
+
+        public override double WithdrawMoney()
+        {
+
+            return 3.4;
+        }
+
+    }
+    public class CreditCard : Account
+    {
+        public CreditCard()
+        {
+            AccountType = "Karta Kredytowa";
+        }
+        public override double DepositMoney()
+        {
+            return 2.3;
+        }
+
+        public override double WithdrawMoney()
+        {
+
+            return 3.4;
+        }
+
+    }
+
+    public class Client
+    {
+        public string name;
+        public string surname;
+        public List<Account> ListOfAccounts = new List<Account>();
+        public override string ToString()
+        {
+            return name + surname;
+        }       
+    }
 
     //}
 }
