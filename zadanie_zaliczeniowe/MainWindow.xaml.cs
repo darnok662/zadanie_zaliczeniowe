@@ -23,9 +23,8 @@ namespace zadanie_zaliczeniowe
     {
         private ObservableCollection<Client> listOfClients = new ObservableCollection<Client>();
         private ObservableCollection<Account> userAccountList = new ObservableCollection<Account>();
-
         private Client selectedClient;
-        
+
         public ObservableCollection<Client> ListOfClients
         {
             get
@@ -54,9 +53,7 @@ namespace zadanie_zaliczeniowe
         public MainWindow()
         {
             InitializeComponent();
- 
         }
-        
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName]string propertyName = null)
@@ -68,19 +65,17 @@ namespace zadanie_zaliczeniowe
                 handler(this, e);
             }
         }
-
         private void customerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var element = sender as ComboBox;
 
-            if(element != null)
+            if (element != null)
             {
-                var selected = element.SelectedItem; 
+                var selected = element.SelectedItem;
                 this.selectedClient = selected as Client;
                 UserAccountList = new ObservableCollection<Account>(selectedClient.ListOfAccounts);
             }
         }
-
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
             //otwarcie nowego okna klienta
@@ -88,19 +83,22 @@ namespace zadanie_zaliczeniowe
 
             if (clientWindow.ShowDialog() == true)
             {
+                //szczytanie i przypisanie wartosci do nowej instancji klasy typu client
                 Client client = new Client()
                 {
-                    name=clientWindow.nameTextbox.Text,
+                    name = clientWindow.nameTextbox.Text,
                     surname = clientWindow.surnameTextbox.Text
                 };
-
                 ListOfClients.Add(client);
             }
-
         }
-
         private void ButtonAddAcc_Click(object sender, RoutedEventArgs e)
         {
+            if (selectedClient == null)
+            {
+                MessageBox.Show("Wybrano niewłasciwego użytkownika.", "Najpierw musisz stworzyć jakiegos użytkownika!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             //otwarcie nowego okna tworzenia konta
             var accountWindow = new accountWindow();
 
@@ -108,10 +106,10 @@ namespace zadanie_zaliczeniowe
             {
                 int selectedIndex = accountWindow.AccTypeComboBox.SelectedIndex;
 
-                if(selectedIndex >= 0)
+                if (selectedIndex >= 0)
                 {
                     Account account = null;
-
+                    //tworzenie nowego konta
                     switch (selectedIndex)
                     {
                         case (int)AccountTypeEnum.PersonalAccount:
@@ -126,8 +124,7 @@ namespace zadanie_zaliczeniowe
                             account = new CreditCard();
                             break;
                     }
-
-                    if(account != null)
+                    if (account != null)
                     {
                         selectedClient.ListOfAccounts.Add(account);
                         UserAccountList.Add(account);
@@ -139,9 +136,9 @@ namespace zadanie_zaliczeniowe
         {
             Account selectedAccount = customerAccList.SelectedItem as Account;
 
-            if(selectedAccount != null)
+            if (selectedAccount != null)
             {
-                if(UserAccountList.Contains(selectedAccount))
+                if (UserAccountList.Contains(selectedAccount))
                 {
                     UserAccountList.Remove(selectedAccount);
                     selectedClient.ListOfAccounts.Remove(selectedAccount);

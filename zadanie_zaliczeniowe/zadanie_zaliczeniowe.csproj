@@ -54,11 +54,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="accountWindow.xaml">
+    <Compile Include="Account.cs" />
+    <Compile Include="Client.cs" />
+    <Compile Include="CreditCard.cs" />
+    <Compile Include="Locate.cs" />
+    <Compile Include="ROR.cs" />
+    <Page Include="AccountWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="clientWindow.xaml">
+    <Page Include="ClientWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -66,16 +71,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Compile Include="accountWindow.xaml.cs">
-      <DependentUpon>accountWindow.xaml</DependentUpon>
+    <Compile Include="AccountWindow.xaml.cs">
+      <DependentUpon>AccountWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes.cs" />
-    <Compile Include="clientWindow.xaml.cs">
-      <DependentUpon>clientWindow.xaml</DependentUpon>
+    <Compile Include="ClientWindow.xaml.cs">
+      <DependentUpon>ClientWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Enums\AccountTypeEnum.cs" />
     <Compile Include="MainWindow.xaml.cs">
