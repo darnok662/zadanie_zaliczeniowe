@@ -20,7 +20,7 @@
 
                 <Label x:Name="labelOne" Grid.Column="0" Content="Wybierz klienta:" VerticalAlignment="Center"/>
                 <ComboBox x:Name="customerList" Grid.Column="1" IsReadOnly="True" Margin="5,5,15,5" SelectionChanged="customerList_SelectionChanged" 
-                          ItemsSource="{Binding ListOfClients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0" />
+                          ItemsSource="{Binding ListOfClients, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0" FontSize="14" />
                 <Button x:Name="buttonAdd" Grid.Column="2" Click="buttonAdd_Click">Dodaj</Button>
 
             </Grid>
@@ -30,8 +30,18 @@
                         <ColumnDefinition Width="2*"></ColumnDefinition>
                         <ColumnDefinition Width="1*"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
-                    <ListBox x:Name="customerAccList" Grid.Column="0"
-                             ItemsSource="{Binding UserAccountList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="0" />
+
+                    <ListView x:Name="customerAccList" Grid.Column="0"
+                             ItemsSource="{Binding UserAccountList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedIndex="-1" >
+                    <ListView.View>
+                            <GridView ColumnHeaderToolTip="Konta klienta" AllowsColumnReorder="False" >
+                                <GridViewColumn DisplayMemberBinding="{Binding AccountType}" Header="Rodzaj Konta" Width="110" />
+                                <GridViewColumn DisplayMemberBinding="{Binding AccountNumber}" Header="Numer Konta" Width="140"/>
+                                <GridViewColumn DisplayMemberBinding="{Binding AccountBalance}" Header="Stan Konta" Width="110"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+
                     <StackPanel x:Name="stackButtonPanel" Grid.Column="1" Margin="15">
                         <Button x:Name="ButtonAddAcc" Margin="5" Height="40" Click="ButtonAddAcc_Click">Dodaj konto</Button>
                         <Button x:Name="ButtonDeleteAcc" Margin="5" Height="40" Click="ButtonDeleteAcc_Click">Usuń konto</Button>
@@ -46,8 +56,8 @@
                         <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
                     <TextBox x:Name="accServiceTextbox" Grid.Column="0" Margin="0, 0, 15, 0" FontSize="24" IsUndoEnabled="False"/>
-                    <Button x:Name="depositButton" Grid.Column="1" Content="Wpłać" Margin="0, 0, 15, 0"/>
-                    <Button x:Name="withdrawButton" Grid.Column="2" Content="Wypłać"/>
+                    <Button x:Name="depositButton" Grid.Column="1" Content="Wpłać" Margin="0, 0, 15, 0" Click="depositButton_Click"/>
+                    <Button x:Name="withdrawButton" Grid.Column="2" Content="Wypłać" Click="withdrawButton_Click"/>
 
 
                 </Grid>

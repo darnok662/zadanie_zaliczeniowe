@@ -19,17 +19,13 @@ using zadanie_zaliczeniowe.Enums;
 
 namespace zadanie_zaliczeniowe
 {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         private ObservableCollection<Client> listOfClients = new ObservableCollection<Client>();
-
-        private Client selectedClient;
-
         private ObservableCollection<Account> userAccountList = new ObservableCollection<Account>();
 
+        private Client selectedClient;
+        
         public ObservableCollection<Client> ListOfClients
         {
             get
@@ -42,7 +38,6 @@ namespace zadanie_zaliczeniowe
                 OnPropertyChanged();
             }
         }
-
         public ObservableCollection<Account> UserAccountList
         {
             get
@@ -59,50 +54,11 @@ namespace zadanie_zaliczeniowe
         public MainWindow()
         {
             InitializeComponent();
-         //   DataContext = this;
-
-            ROR ror = new ROR();
-            ror.accountBalance = 10;
-            
-            Locate lokata = new Locate();
-            Console.WriteLine(lokata.accountBalance.ToString());
-            Console.WriteLine(ror.accountBalance.ToString());
-
-            for (int i = 0; i <= 9; i++)
-            {
-                Client klient = new Client();
-                klient.name = i.ToString();
-                klient.surname = i.ToString();
-
-                double x = 12.3 * i;
-
-                var accType = new ROR();
-                accType.accountBalance = x;
-
-                klient.ListOfAccounts.Add(accType);
-
-                ListOfClients.Add(klient);
-
-                
-                
-            }
-
-
-
-            //customerList.ItemsSource = ListOfClients;
-            //customerList.Focus();
-            //if (customerList.Items.Count > 0) customerList.SelectedIndex = 0;
-
-           // listaKont[numer_konta]
+ 
         }
         
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        /// <summary>
-        /// Raises this object's PropertyChanged event.
-        /// </summary>
-        /// <param name="propertyName">The property that has a new value.</param>
         protected void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
             PropertyChangedEventHandler handler = this.PropertyChanged;
@@ -113,7 +69,6 @@ namespace zadanie_zaliczeniowe
             }
         }
 
-
         private void customerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             var element = sender as ComboBox;
@@ -121,15 +76,14 @@ namespace zadanie_zaliczeniowe
             if(element != null)
             {
                 var selected = element.SelectedItem; 
-
                 this.selectedClient = selected as Client;
                 UserAccountList = new ObservableCollection<Account>(selectedClient.ListOfAccounts);
             }
-            //customerAccList.ItemsSource = ListOfClients[customerList.SelectedIndex].ListOfAccounts;
         }
 
         private void buttonAdd_Click(object sender, RoutedEventArgs e)
         {
+            //otwarcie nowego okna klienta
             var clientWindow = new clientWindow();
 
             if (clientWindow.ShowDialog() == true)
@@ -147,6 +101,7 @@ namespace zadanie_zaliczeniowe
 
         private void ButtonAddAcc_Click(object sender, RoutedEventArgs e)
         {
+            //otwarcie nowego okna tworzenia konta
             var accountWindow = new accountWindow();
 
             if (accountWindow.ShowDialog() == true)
@@ -159,19 +114,16 @@ namespace zadanie_zaliczeniowe
 
                     switch (selectedIndex)
                     {
-                        case (int)AccountTypeEnum.CreditCard:
-                            account = new CreditCard();
-
+                        case (int)AccountTypeEnum.PersonalAccount:
+                            account = new ROR();
                             break;
 
                         case (int)AccountTypeEnum.DepositAccount:
                             account = new Locate();
-
                             break;
 
-                        case (int)AccountTypeEnum.PersonalAccount:
-                            account = new ROR();
-
+                        case (int)AccountTypeEnum.CreditCard:
+                            account = new CreditCard();
                             break;
                     }
 
@@ -183,7 +135,6 @@ namespace zadanie_zaliczeniowe
                 }
             }
         }
-
         private void ButtonDeleteAcc_Click(object sender, RoutedEventArgs e)
         {
             Account selectedAccount = customerAccList.SelectedItem as Account;
@@ -195,6 +146,66 @@ namespace zadanie_zaliczeniowe
                     UserAccountList.Remove(selectedAccount);
                     selectedClient.ListOfAccounts.Remove(selectedAccount);
                 }
+            }
+            else
+            {
+                MessageBox.Show("Wybrano niewłasciwe konto.", "Wybierz konto które chcesz usunąc!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+        }
+        private void depositButton_Click(object sender, RoutedEventArgs e)
+        {
+            Account selectedAccount = customerAccList.SelectedItem as Account;
+
+            if (selectedAccount != null)
+            {
+                if (UserAccountList.Contains(selectedAccount))
+                {
+                    bool help = Double.TryParse(accServiceTextbox.Text, out double jkl);
+                    if (help == false || jkl == 0)
+                    {
+                        MessageBox.Show("Podaj prawidłową wartość!", "Błędna kwota.", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    else
+                    {
+                        selectedAccount.DepositMoney(jkl);
+                        accServiceTextbox.Text = String.Empty;
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Wybierz konto na które chcesz wpłacić pieniądze!", "Wybierz konto!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+        }
+
+        private void withdrawButton_Click(object sender, RoutedEventArgs e)
+        {
+            Account selectedAccount = customerAccList.SelectedItem as Account;
+
+            if (selectedAccount != null)
+            {
+                if (UserAccountList.Contains(selectedAccount))
+                {
+                    bool help = Double.TryParse(accServiceTextbox.Text, out double jkl);
+                    if (help == false || jkl == 0)
+                    {
+                        MessageBox.Show("Podaj prawidłową wartość!", "Błędna kwota.", MessageBoxButton.OK, MessageBoxImage.Error);
+                        return;
+                    }
+                    else
+                    {
+                        selectedAccount.WithdrawMoney(jkl);
+                        accServiceTextbox.Text = String.Empty;
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("Wybierz konto z którego chcesz wpłacić pieniądze!", "Wybierz konto!", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
             }
         }
     }

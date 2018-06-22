@@ -14,9 +14,6 @@ using System.Windows.Shapes;
 
 namespace zadanie_zaliczeniowe
 {
-    /// <summary>
-    /// Interaction logic for clientWindow.xaml
-    /// </summary>
     public partial class clientWindow : Window
     {
         public clientWindow()
@@ -36,10 +33,7 @@ namespace zadanie_zaliczeniowe
                 MessageBox.Show("Musisz podać jakąś wartość!", "Błędne nazwisko", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-
             DialogResult = true;
-
-            
         }
     }
 }

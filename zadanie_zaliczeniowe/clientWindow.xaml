@@ -5,11 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:zadanie_zaliczeniowe"
         mc:Ignorable="d"
-        Title="clientWindow" Height="260" Width="400" MaxHeight="260" MaxWidth="400" MinHeight="160" MinWidth="400">
+        Title="clientWindow" Height="200" Width="400">
     <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="2*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="5, 10">
@@ -19,28 +19,27 @@
             </Grid.ColumnDefinitions>
 
             <Grid.RowDefinitions>
-                <RowDefinition></RowDefinition>
+                <RowDefinition ></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
 
             <Label x:Name="nameLabel" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Grid.ColumnSpan="2" Margin="0,1,262,1" Width="120">Imie:</Label>
-            <TextBox x:Name="nameTextbox" Grid.Column="1" Margin="29,0,0,0"></TextBox>
+            <TextBox x:Name="nameTextbox" Grid.Column="1" Margin="29,5,5,5" FontSize="24"></TextBox>
 
             <Label x:Name="surnameLabel" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" Grid.ColumnSpan="2" Margin="0,1,262,1" Width="120">Nazwisko:</Label>
-            <TextBox x:Name="surnameTextbox" Grid.Row="1" Grid.Column="1" Margin="29,0,0,0"></TextBox>
-            
+            <TextBox x:Name="surnameTextbox" Grid.Row="1" Grid.Column="1" Margin="29,5,5,5" FontSize="24"></TextBox>
         </Grid>
 
-        <Grid Grid.Row="2" Height="60">
+        <Grid Grid.Row="1" Margin="0">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="okButton" Grid.Column="1" Margin="5" FontSize="24" Click="okButton_Click">OK</Button>
-            <Button x:Name="cancelButton" Grid.Column="2" Margin="5" FontSize="24" Click="cancelButton_Click">Anuluj</Button>
-            
+            <Button x:Name="okButton" Grid.Column="1" Margin="8" FontSize="24" Click="okButton_Click" IsDefault="True">OK</Button>
+            <Button x:Name="cancelButton" Grid.Column="2" Margin="8" FontSize="24" Click="cancelButton_Click" IsCancel="True">Anuluj</Button>
+
         </Grid>
 
     </Grid>

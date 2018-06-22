@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:zadanie_zaliczeniowe"
         mc:Ignorable="d"
-        Title="accountWindow" Height="240" Width="600"  MinHeight="240" MinWidth="600"  MaxHeight="240" MaxWidth="600"
+        Title="accountWindow" Height="220" Width="400"  
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
     <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
-            <RowDefinition></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0" Margin="10">
@@ -21,8 +21,8 @@
                 <ColumnDefinition Width="3*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="generatedNumberLabel" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">Numer konta:</Label>
-            <TextBox x:Name="GeneratedNumberTextbox" Text="{Binding AccountNumber , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" IsReadOnly="True" IsEnabled="False"></TextBox>
+            <Label x:Name="generatedNumberLabel" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">Numer konta:</Label>
+            <TextBox x:Name="GeneratedNumberTextbox" Text="{Binding AccountNumber , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" IsReadOnly="True" IsEnabled="False" FontSize="20" VerticalAlignment="Center"></TextBox>
         </Grid>
 
         <Grid Grid.Row="1" Margin="10">
@@ -31,11 +31,11 @@
                 <ColumnDefinition Width="3*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="accTypeLabel" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24">Rodzaj konta: </Label>
-            <ComboBox x:Name="AccTypeComboBox" Grid.Column="1" SelectedIndex="0">
-                <ComboBoxItem Content="pierwa sort" />
-                <ComboBoxItem Content="2 sort" />
-                <ComboBoxItem Content="3 sort" />
+            <Label x:Name="accTypeLabel" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20">Rodzaj konta: </Label>
+            <ComboBox x:Name="AccTypeComboBox" Grid.Column="1" SelectedIndex="0" FontSize="20" VerticalAlignment="Center">
+                <ComboBoxItem Content="Zwykły Rachunek" />
+                <ComboBoxItem Content="Lokata" />
+                <ComboBoxItem Content="Karta Kredytowa" />
             </ComboBox>
             
         </Grid>
@@ -48,8 +48,8 @@
                 <ColumnDefinition Width="1*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="okButton" Grid.Column="1" Margin="5" FontSize="24" Click="okButton_Click">OK</Button>
-            <Button x:Name="cancelButton" Grid.Column="2" Margin="5" FontSize="24" Click="cancelButton_Click">Anuluj</Button>
+            <Button x:Name="okButton" Grid.Column="1" Margin="8" FontSize="20" Click="okButton_Click" IsDefault="True">OK</Button>
+            <Button x:Name="cancelButton" Grid.Column="2" Margin="8" FontSize="20" Click="cancelButton_Click" IsCancel="True">Anuluj</Button>
 
         </Grid>
 
