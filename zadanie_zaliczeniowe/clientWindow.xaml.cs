@@ -25,7 +25,6 @@ namespace zadanie_zaliczeniowe
         {
             DialogResult = false;
         }
-
         private void okButton_Click(object sender, RoutedEventArgs e)
         {
             if (String.IsNullOrWhiteSpace(surnameTextbox.Text))

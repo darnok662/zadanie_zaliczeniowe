@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:zadanie_zaliczeniowe"
         mc:Ignorable="d"
-        Title="clientWindow" Height="160" Width="300">
+        Title="clientWindow" Height="160" Width="300" MinHeight="160" MinWidth="300" MaxHeight="160" MaxWidth="300">
     <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"></RowDefinition>
