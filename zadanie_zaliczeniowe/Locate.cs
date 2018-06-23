@@ -31,6 +31,7 @@ namespace zadanie_zaliczeniowe
         }
         public override void WithdrawMoney(double jkl)
         {
+            //założenie, że po wpłacie poczatkowego kapitału użytkownik może wypłacić maksymalnie 70% wpłaconej kwoty
             if (FirstDeposit == true && ((AccountBalance - jkl) >= (FirstMoneyDeposited * 0.3)))
             {
                 AccountBalance -= jkl;

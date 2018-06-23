@@ -19,8 +19,13 @@ using zadanie_zaliczeniowe.Enums;
 
 namespace zadanie_zaliczeniowe
 {
+    //klasa abstrakcyjna po której dziedziczą wszystkie klasy reperentujące różne rodzaje kont
+    //musimy zaimplementowac interfejs INotifyPropertyChanged który pozwoli nam informować o zmianie właściwości
+    //https://docs.microsoft.com/pl-pl/dotnet/framework/wpf/data/how-to-implement-property-change-notification
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        //używamy ObserveableCollection, to taki 'specialny' rodzaj listy który pozwala nam obserwować zmiany wybranej kolekcji(listy)
+        //https://social.msdn.microsoft.com/Forums/vstudio/en-US/f677fb36-6085-4efd-8438-4e8bbeb6f6c6/what-is-the-difference-between-list-vs-observablecollection-and-which-one-is-the-faster?forum=csharpgeneral
         private ObservableCollection<Client> listOfClients = new ObservableCollection<Client>();
         private ObservableCollection<Account> userAccountList = new ObservableCollection<Account>();
         private Client selectedClient;
@@ -33,6 +38,8 @@ namespace zadanie_zaliczeniowe
             }
             set
             {
+                //value to parametr ktory przekazujemy dla seta np. AccountBalance = 5
+                //przy ustawianiu zmiennej wywołujemy OnPropertyChanged dzięki temu odświeża nam się widok
                 listOfClients = value;
                 OnPropertyChanged();
             }
@@ -55,7 +62,9 @@ namespace zadanie_zaliczeniowe
             InitializeComponent();
         }
 
+        //deklaracja eventu PropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
+        //delegat który pozwala nam uzyć OnPropertyChanged, bez tego binding nie bedzie działać
         protected void OnPropertyChanged([CallerMemberName]string propertyName = null)
         {
             PropertyChangedEventHandler handler = this.PropertyChanged;
@@ -65,14 +74,18 @@ namespace zadanie_zaliczeniowe
                 handler(this, e);
             }
         }
+        //co ma sie dziać kiedy zmieniamu klienta w combo Boxie?
         private void customerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            //ustawiamy 'szczytywanie' danych na naszego ComboBoxa
             var element = sender as ComboBox;
 
             if (element != null)
             {
+                //tworzymy nowy element i przypisujemy mu obecnie wybranego usera
                 var selected = element.SelectedItem;
                 this.selectedClient = selected as Client;
+                //dla kazdego klienta tworzymy jego własną listę kont
                 UserAccountList = new ObservableCollection<Account>(selectedClient.ListOfAccounts);
             }
         }
@@ -158,8 +171,8 @@ namespace zadanie_zaliczeniowe
             {
                 if (UserAccountList.Contains(selectedAccount))
                 {
-                    bool help = Double.TryParse(accServiceTextbox.Text, out double jkl);
-                    if (help == false || jkl == 0)
+                   
+                    if (!Double.TryParse(accServiceTextbox.Text, out double jkl) || jkl == 0)
                     {
                         MessageBox.Show("Podaj prawidłową wartość!", "Błędna kwota.", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;
@@ -180,14 +193,14 @@ namespace zadanie_zaliczeniowe
 
         private void withdrawButton_Click(object sender, RoutedEventArgs e)
         {
+            //tworzymy nowy obiekt klasy account i przypisujemy mu element listy (który jest również obiektem)
             Account selectedAccount = customerAccList.SelectedItem as Account;
 
             if (selectedAccount != null)
             {
                 if (UserAccountList.Contains(selectedAccount))
                 {
-                    bool help = Double.TryParse(accServiceTextbox.Text, out double jkl);
-                    if (help == false || jkl == 0)
+                    if (!Double.TryParse(accServiceTextbox.Text, out double jkl) || jkl == 0)
                     {
                         MessageBox.Show("Podaj prawidłową wartość!", "Błędna kwota.", MessageBoxButton.OK, MessageBoxImage.Error);
                         return;

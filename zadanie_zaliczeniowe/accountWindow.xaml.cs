@@ -16,6 +16,9 @@ using System.Windows.Shapes;
 
 namespace zadanie_zaliczeniowe
 {
+    //klasa abstrakcyjna po której dziedziczą wszystkie klasy reperentujące różne rodzaje kont
+    //musimy zaimplementowac interfejs INotifyPropertyChanged który pozwoli nam informować o zmianie właściwości
+    //https://docs.microsoft.com/pl-pl/dotnet/framework/wpf/data/how-to-implement-property-change-notification
     public partial class accountWindow : Window, INotifyPropertyChanged
     {
         private long accountNumber;
@@ -32,6 +35,8 @@ namespace zadanie_zaliczeniowe
             }
             set
             {
+                //value to parametr ktory przekazujemy dla seta np. AccountBalance = 5
+                //przy ustawianiu zmiennej wywołujemy OnPropertyChanged dzięki temu odświeża nam się widok
                 accountNumber = value;
                 OnPropertyChanged();
             }
