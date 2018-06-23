@@ -63,6 +63,7 @@ namespace zadanie_zaliczeniowe
         }
 
         //deklaracja eventu PropertyChanged
+        //dev branch test
         public event PropertyChangedEventHandler PropertyChanged;
         //delegat który pozwala nam uzyć OnPropertyChanged, bez tego binding nie bedzie działać
         protected void OnPropertyChanged([CallerMemberName]string propertyName = null)
