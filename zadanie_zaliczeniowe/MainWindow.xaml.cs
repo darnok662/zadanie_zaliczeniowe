@@ -19,82 +19,39 @@ using zadanie_zaliczeniowe.Enums;
 
 namespace zadanie_zaliczeniowe
 {
-    //klasa abstrakcyjna po której dziedziczą wszystkie klasy reperentujące różne rodzaje kont
-    //musimy zaimplementowac interfejs INotifyPropertyChanged który pozwoli nam informować o zmianie właściwości
-    //https://docs.microsoft.com/pl-pl/dotnet/framework/wpf/data/how-to-implement-property-change-notification
-    public partial class MainWindow : Window, INotifyPropertyChanged
+    public partial class MainWindow : Window
     {
         //używamy ObserveableCollection, to taki 'specialny' rodzaj listy który pozwala nam obserwować zmiany wybranej kolekcji(listy)
         //https://social.msdn.microsoft.com/Forums/vstudio/en-US/f677fb36-6085-4efd-8438-4e8bbeb6f6c6/what-is-the-difference-between-list-vs-observablecollection-and-which-one-is-the-faster?forum=csharpgeneral
-        private ObservableCollection<Client> listOfClients = new ObservableCollection<Client>();
-        private ObservableCollection<Account> userAccountList = new ObservableCollection<Account>();
         private Client selectedClient;
 
-        public ObservableCollection<Client> ListOfClients
-        {
-            get
-            {
-                return listOfClients;
-            }
-            set
-            {
-                //value to parametr ktory przekazujemy dla seta np. AccountBalance = 5
-                //przy ustawianiu zmiennej wywołujemy OnPropertyChanged dzięki temu odświeża nam się widok
-                listOfClients = value;
-                OnPropertyChanged();
-            }
-        }
-        public ObservableCollection<Account> UserAccountList
-        {
-            get
-            {
-                return userAccountList;
-            }
-            set
-            {
-                userAccountList = value;
-                OnPropertyChanged();
-            }
-        }
+        public ObservableCollection<Client> ListOfClients { get; set; } = new ObservableCollection<Client>();
+        public ObservableCollection<Account> UserAccountList { get; set; } = new ObservableCollection<Account>();
 
         public MainWindow()
         {
+            //Date Context mamy ustawiony w XAMLU
             InitializeComponent();
         }
 
-        //deklaracja eventu PropertyChanged
-        //dev branch test
-        public event PropertyChangedEventHandler PropertyChanged;
-        //delegat który pozwala nam uzyć OnPropertyChanged, bez tego binding nie bedzie działać
-        protected void OnPropertyChanged([CallerMemberName]string propertyName = null)
-        {
-            PropertyChangedEventHandler handler = this.PropertyChanged;
-            if (handler != null)
-            {
-                var e = new PropertyChangedEventArgs(propertyName);
-                handler(this, e);
-            }
-        }
-        //co ma sie dziać kiedy zmieniamu klienta w combo Boxie?
-        private void customerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //Co ma sie dziać kiedy zmieniamu klienta w comboBoxie?
+        private void CustomerList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             //ustawiamy 'szczytywanie' danych na naszego ComboBoxa
             var element = sender as ComboBox;
-
             if (element != null)
             {
                 //tworzymy nowy element i przypisujemy mu obecnie wybranego usera
                 var selected = element.SelectedItem;
                 this.selectedClient = selected as Client;
                 //dla kazdego klienta tworzymy jego własną listę kont
-                UserAccountList = new ObservableCollection<Account>(selectedClient.ListOfAccounts);
+                customerAccList.ItemsSource = selectedClient.ListOfAccounts;
             }
         }
-        private void buttonAdd_Click(object sender, RoutedEventArgs e)
+        private void ButtonAdd_Click(object sender, RoutedEventArgs e)
         {
             //otwarcie nowego okna klienta
             var clientWindow = new clientWindow();
-
             if (clientWindow.ShowDialog() == true)
             {
                 //szczytanie i przypisanie wartosci do nowej instancji klasy typu client
@@ -103,7 +60,10 @@ namespace zadanie_zaliczeniowe
                     name = clientWindow.nameTextbox.Text,
                     surname = clientWindow.surnameTextbox.Text
                 };
-                ListOfClients.Add(client);
+                if (client != null)
+                {
+                    ListOfClients.Add(client);
+                }
             }
         }
         private void ButtonAddAcc_Click(object sender, RoutedEventArgs e)
@@ -115,11 +75,9 @@ namespace zadanie_zaliczeniowe
             }
             //otwarcie nowego okna tworzenia konta
             var accountWindow = new accountWindow();
-
             if (accountWindow.ShowDialog() == true)
             {
                 int selectedIndex = accountWindow.AccTypeComboBox.SelectedIndex;
-
                 if (selectedIndex >= 0)
                 {
                     Account account = null;
@@ -146,10 +104,10 @@ namespace zadanie_zaliczeniowe
                 }
             }
         }
+        
         private void ButtonDeleteAcc_Click(object sender, RoutedEventArgs e)
         {
             Account selectedAccount = customerAccList.SelectedItem as Account;
-
             if (selectedAccount != null)
             {
                 if (UserAccountList.Contains(selectedAccount))
@@ -164,10 +122,9 @@ namespace zadanie_zaliczeniowe
                 return;
             }
         }
-        private void depositButton_Click(object sender, RoutedEventArgs e)
+        private void DepositButton_Click(object sender, RoutedEventArgs e)
         {
             Account selectedAccount = customerAccList.SelectedItem as Account;
-
             if (selectedAccount != null)
             {
                 if (UserAccountList.Contains(selectedAccount))
@@ -190,13 +147,14 @@ namespace zadanie_zaliczeniowe
                 MessageBox.Show("Wybierz konto na które chcesz wpłacić pieniądze!", "Wybierz konto!", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            //po każdym wcisnieciu guzika odświeżamy listę
+            customerAccList.Items.Refresh();
         }
 
-        private void withdrawButton_Click(object sender, RoutedEventArgs e)
+        private void WithdrawButton_Click(object sender, RoutedEventArgs e)
         {
             //tworzymy nowy obiekt klasy account i przypisujemy mu element listy (który jest również obiektem)
             Account selectedAccount = customerAccList.SelectedItem as Account;
-
             if (selectedAccount != null)
             {
                 if (UserAccountList.Contains(selectedAccount))
@@ -218,6 +176,8 @@ namespace zadanie_zaliczeniowe
                 MessageBox.Show("Wybierz konto z którego chcesz wpłacić pieniądze!", "Wybierz konto!", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            //po każdym wcisnieciu guzika odświeżamy listę
+            customerAccList.Items.Refresh();
         }
     }
 }
